@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OpenMailer · Ledger · Message</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;560&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: #f7f7f7; color: #111; font-family: "IBM Plex Sans", Inter, system-ui, sans-serif; }
+  button, textarea { font: inherit; }
+  .app { display: grid; grid-template-columns: 212px 1fr; height: 100vh; }
+  aside.nav { background: #fff; border-right: 1px solid #ececec; padding: 16px 12px; }
+  .brand { font-weight: 560; letter-spacing: -.03em; padding: 4px 8px 18px; }
+  .nav a, .nav div.item { display: block; font-size: 13px; padding: 7px 8px; border-radius: 6px; color: #444; text-decoration: none; }
+  .nav .on { background: #f3f3f3; color: #111; }
+  .nav .sec { font-size: 11px; color: #999; letter-spacing: .04em; padding: 16px 8px 6px; }
+  .work { display: grid; grid-template-columns: 380px 1fr; min-width: 0; }
+  .list { background: #fff; border-right: 1px solid #ececec; display: flex; flex-direction: column; min-width: 0; }
+  .list head, .list-h { padding: 16px 16px 10px; display: flex; justify-content: space-between; align-items: baseline; }
+  .list-h h1 { margin: 0; font-size: 16px; font-weight: 560; letter-spacing: -.02em; }
+  .list-h span { font-size: 12px; color: #888; }
+  .filters { display: flex; gap: 6px; padding: 0 16px 10px; }
+  .filters button { border: 1px solid #e6e6e6; background: #fff; border-radius: 999px; padding: 4px 9px; font-size: 12px; color: #555; cursor: pointer; }
+  .filters button.on { background: #111; color: #fff; border-color: #111; }
+  .row { display: grid; grid-template-columns: 1fr auto; gap: 8px; padding: 12px 16px; border-top: 1px solid #f2f2f2; cursor: pointer; }
+  .row.on { background: #fafafa; }
+  .row .who { font-size: 14px; }
+  .row .meta { font-size: 12px; color: #777; margin-top: 2px; }
+  .st { font-size: 12px; color: #666; }
+  .st.human { color: #111; }
+  .detail { padding: 22px 28px 40px; min-width: 0; }
+  .crumb { font-size: 12px; color: #888; letter-spacing: .03em; }
+  .title { margin: 6px 0 14px; font-size: 26px; font-weight: 560; letter-spacing: -.03em; }
+  .props { display: grid; grid-template-columns: 120px 1fr; gap: 8px 16px; font-size: 13px; margin-bottom: 18px; max-width: 640px; }
+  .props dt { color: #888; }
+  .props dd { margin: 0; }
+  .actions { display: flex; gap: 8px; margin: 4px 0 18px; }
+  .actions button { border-radius: 6px; padding: 7px 12px; font-size: 13px; cursor: pointer; }
+  .primary { background: #111; color: #fff; border: 1px solid #111; }
+  .ghost { background: #fff; color: #111; border: 1px solid #e2e2e2; }
+  .danger { background: #fff; color: #8a1f1f; border: 1px solid #ecdcdc; }
+  .letter { background: #fff; border: 1px solid #ececec; border-radius: 10px; padding: 16px 18px; max-width: 680px; }
+  .letter label { display: block; font-size: 11px; color: #888; letter-spacing: .04em; margin-bottom: 4px; }
+  .subject { width: 100%; border: 0; border-bottom: 1px solid #f0f0f0; padding: 4px 0 10px; font-size: 15px; font-weight: 500; outline: none; background: transparent; }
+  textarea.body { width: 100%; border: 0; resize: vertical; min-height: 220px; margin-top: 12px; line-height: 1.55; font-size: 14px; outline: none; color: #1a1a1a; background: transparent; }
+  .facts { margin-top: 16px; font-size: 12px; color: #777; font-family: "IBM Plex Mono", monospace; }
+  .toast { display: none; margin-top: 12px; font-size: 13px; }
+  .toast.on { display: block; }
+  a.back { color: #888; text-decoration: none; font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="nav">
+    <div class="brand">OpenMailer</div>
+    <div class="item on">Inbox</div>
+    <div class="item">People</div>
+    <div class="item">Companies</div>
+    <div class="item">Sequences</div>
+    <div class="item">Content</div>
+    <div class="sec">VIEWS</div>
+    <div class="item">Needs approval</div>
+    <div class="item">Positive replies</div>
+    <div class="sec">BRAND</div>
+    <div class="item">Tradeline</div>
+  </aside>
+  <div class="work">
+    <section class="list">
+      <div class="list-h">
+        <h1>Messages</h1>
+        <span>6 waiting</span>
+      </div>
+      <div class="filters">
+        <button class="on">Draft</button>
+        <button>Human</button>
+        <button>All</button>
+      </div>
+      <div class="row on" data-id="sam">
+        <div>
+          <div class="who">Sam Hale</div>
+          <div class="meta">Hale & Co · step 1 · intro</div>
+        </div>
+        <div class="st">Draft</div>
+      </div>
+      <div class="row" data-id="priya">
+        <div>
+          <div class="who">Priya Shah</div>
+          <div class="meta">Northline Joinery · step 2</div>
+        </div>
+        <div class="st">Draft</div>
+      </div>
+      <div class="row" data-id="james">
+        <div>
+          <div class="who">James Whit</div>
+          <div class="meta">Oak & Beam · reply</div>
+        </div>
+        <div class="st human">Human</div>
+      </div>
+      <div class="row" data-id="digest">
+        <div>
+          <div class="who">Digest · week 40</div>
+          <div class="meta">UK builders · publish</div>
+        </div>
+        <div class="st">Review</div>
+      </div>
+    </section>
+    <section class="detail">
+      <div class="crumb">TRADELINE · UK BUILDERS · WAVE 1 · <a class="back" href="index.html#attio">Back to routes</a></div>
+      <h2 class="title" id="name">Sam Hale</h2>
+      <dl class="props" id="props"></dl>
+      <div class="actions">
+        <button class="primary" id="approve">Approve</button>
+        <button class="ghost" id="edit">Edit</button>
+        <button class="danger" id="reject">Reject</button>
+      </div>
+      <div class="letter">
+        <label>SUBJECT</label>
+        <input class="subject" id="subject" value="A quieter way to handle site admin" />
+        <textarea class="body" id="body">Sam — most of the builders we speak with lose an hour a day to paperwork that should take ten minutes.
+
+Tradeline is a short weekly note on using AI for the admin around a job, not the job itself. No pitch in this one. If it is useful, the next note is the digest.
+
+— Tradeline</textarea>
+        <div class="facts" id="facts">composer · brief v2 · step 1 · facts: director, UK, site admin</div>
+      </div>
+      <div class="toast" id="toast"></div>
+    </section>
+  </div>
+</div>
+<script>
+  const records = {
+    sam: {
+      name: "Sam Hale",
+      props: [["Company","Hale & Co Builders"],["Role","Director"],["Step","1 · soft intro"],["Status","Draft"],["Sequence","UK builders wave 1"],["Research","Fresh · 6 days"]],
+      subject: "A quieter way to handle site admin",
+      body: "Sam — most of the builders we speak with lose an hour a day to paperwork that should take ten minutes.\n\nTradeline is a short weekly note on using AI for the admin around a job, not the job itself. No pitch in this one. If it is useful, the next note is the digest.\n\n— Tradeline",
+      facts: "composer · brief v2 · step 1 · facts: director, UK, site admin"
+    },
+    priya: {
+      name: "Priya Shah",
+      props: [["Company","Northline Joinery"],["Role","Owner"],["Step","2 · follow-up"],["Status","Draft"],["Sequence","UK builders wave 1"],["Research","Fresh · 4 days"]],
+      subject: "The note I mentioned",
+      body: "Priya — following the short note last week. The digest this Friday is on admin triage: what to hand to a tool, and what to keep.\n\nHappy to send it. One click if you would rather I stop.\n\n— Tradeline",
+      facts: "composer · brief v2 · step 2 · facts: owner, joinery, follow-up"
+    },
+    james: {
+      name: "James Whit",
+      props: [["Company","Oak & Beam"],["Role","Director"],["Step","Reply"],["Status","Human"],["Sequence","Stopped · interested"],["Research","Fresh"]],
+      subject: "Re: A quieter way to handle site admin",
+      body: "Interested — tell me more. We are drowning in site paperwork and I would rather see the digest before a call.",
+      facts: "reply · classifier: interested · sequence paused · handoff"
+    },
+    digest: {
+      name: "Digest · week 40",
+      props: [["Type","Content piece"],["Theme","Admin triage"],["Status","Review"],["List","UK builders"],["Brief","Week 40"],["Agent","digest stub"]],
+      subject: "AI for builders — week 40",
+      body: "Three things this week.\n\n1. Admin triage: the paperwork that is not the job.\n2. One site story from a joiner who stopped retyping the same quote.\n3. One tool worth ten minutes, not a stack.\n\n— Tradeline",
+      facts: "content.digest · approve before publish"
+    }
+  };
+  const props = document.getElementById("props");
+  const nameEl = document.getElementById("name");
+  const subject = document.getElementById("subject");
+  const body = document.getElementById("body");
+  const facts = document.getElementById("facts");
+  const toast = document.getElementById("toast");
+  function show(id) {
+    const r = records[id];
+    nameEl.textContent = r.name;
+    subject.value = r.subject;
+    body.value = r.body;
+    facts.textContent = r.facts;
+    props.innerHTML = r.props.map(([k,v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("");
+    document.querySelectorAll(".row").forEach(row => row.classList.toggle("on", row.dataset.id === id));
+    toast.classList.remove("on");
+    subject.readOnly = true;
+    body.readOnly = true;
+  }
+  document.querySelectorAll(".row").forEach(row => row.onclick = () => show(row.dataset.id));
+  document.getElementById("edit").onclick = () => {
+    subject.readOnly = false;
+    body.readOnly = false;
+    subject.focus();
+    toast.textContent = "Editing. Approve saves this version.";
+    toast.classList.add("on");
+  };
+  document.getElementById("approve").onclick = () => {
+    toast.textContent = "Approved. Send stays a separate step — nothing has left the building.";
+    toast.classList.add("on");
+  };
+  document.getElementById("reject").onclick = () => {
+    toast.textContent = "Rejected. Sequence does not advance. You can compose again.";
+    toast.classList.add("on");
+  };
+  show("sam");
+</script>
+</body>
+</html>
