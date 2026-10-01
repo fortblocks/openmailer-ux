@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OpenMailer — dashboard routes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Inter:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root { --ink:#1c1917; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; height:100%; }
+  body { font-family: Inter, system-ui, sans-serif; background:#111; color:#f5f5f4; }
+  .chooser {
+    position: sticky; top:0; z-index:20;
+    display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+    padding:12px 18px; background:#0c0c0c; border-bottom:1px solid #2a2a2a;
+  }
+  .chooser b { font-weight:500; letter-spacing:-.02em; margin-right:8px; }
+  .chooser button, .chooser a {
+    border:1px solid #333; background:#1a1a1a; color:#eee; border-radius:999px;
+    padding:7px 12px; font:500 13px Inter, sans-serif; cursor:pointer; text-decoration:none;
+  }
+  .chooser button.on { background:#fff; color:#111; border-color:#fff; }
+  .note { margin-left:auto; color:#a3a3a3; font-size:12px; max-width:520px; }
+  .stage { display:none; min-height:calc(100vh - 54px); }
+  .stage.on { display:block; }
+  .caption {
+    padding:18px 28px 0; font-size:13px; line-height:1.5; max-width:760px;
+  }
+  .caption strong { font-weight:600; }
+  /* shared bits */
+  .row { display:flex; align-items:flex-start; gap:10px; }
+  .check { width:16px; height:16px; border-radius:50%; border:1.5px solid currentColor; opacity:.45; flex:none; margin-top:2px; }
+  .muted { opacity:.55; }
+  .pill { font-size:11px; border-radius:999px; padding:2px 8px; }
+</style>
+</head>
+<body>
+<nav class="chooser">
+  <b>OpenMailer</b>
+  <button class="on" data-s="things">01 Quiet</button>
+  <button data-s="attio">02 Ledger</button>
+  <button data-s="signal">03 Signal</button>
+  <button data-s="studio">04 Studio</button>
+  <span class="note" id="note"></span>
+</nav>
+
+<!-- THINGS -->
+<section class="stage on" id="things">
+  <div class="caption" style="color:#dbe4f0">
+    <strong>01 Quiet — Things.</strong> A calm daily desk. Blue stage, white cards, colour only for meaning. Approvals feel like a Today list, not a CRM table. Best if the operator should feel unhurried and in control.
+  </div>
+  <div style="background:#6f8bb4; min-height:calc(100vh - 110px); padding:28px; font-family:Inter,sans-serif; color:#1d1d1f;">
+    <div style="max-width:1120px; margin:0 auto; display:grid; grid-template-columns:248px 1fr; gap:18px;">
+      <aside style="background:#f7f7f8; border-radius:16px; padding:18px 8px 14px; box-shadow:0 20px 50px rgba(20,40,80,.18);">
+        <div style="padding:6px 14px 14px; font-weight:600;">OpenMailer</div>
+        <div style="display:flex; justify-content:space-between; padding:8px 14px; background:#fff; border-radius:10px; margin:2px 8px; font-weight:600;"><span>★ Today</span><span style="background:#ff3b30; color:#fff; border-radius:10px; font-size:12px; padding:1px 7px;">6</span></div>
+        <div style="padding:8px 22px; color:#6e6e73;">Waiting</div>
+        <div style="padding:8px 22px; color:#6e6e73;">Human queue</div>
+        <div style="padding:8px 22px; color:#6e6e73;">Someday</div>
+        <div style="padding:14px 22px 6px; font-size:12px; color:#8e8e93; letter-spacing:.04em;">BRANDS</div>
+        <div style="padding:6px 22px;">Tradeline</div>
+        <div style="padding:6px 22px; color:#6e6e73;">UK builders · wave 1</div>
+        <div style="padding:6px 22px; color:#6e6e73;">Weekly digest</div>
+        <div style="padding:14px 22px 6px; font-size:12px; color:#8e8e93;">LOG</div>
+        <div style="padding:6px 22px; color:#6e6e73;">Sent this week</div>
+      </aside>
+      <main style="background:#fff; border-radius:18px; padding:22px 26px 28px; box-shadow:0 24px 60px rgba(20,40,80,.16);">
+        <div style="display:flex; align-items:baseline; gap:10px; margin-bottom:6px;">
+          <span style="color:#f5c518; font-size:22px;">★</span>
+          <h1 style="margin:0; font-size:28px; font-weight:650; letter-spacing:-.03em;">Today</h1>
+        </div>
+        <p style="margin:0 0 18px; color:#6e6e73; font-size:14px;">Six drafts waiting on you. Nothing sends until you say so.</p>
+        <div style="font-size:12px; color:#8e8e93; margin:16px 0 8px;">APPROVE</div>
+        <div class="row" style="padding:12px 0; border-bottom:1px solid #eee;">
+          <div class="check"></div>
+          <div style="flex:1">
+            <div>Sam Hale · Hale & Co Builders</div>
+            <div class="muted" style="font-size:13px; margin-top:2px;">Step 1 · soft intro · “AI for site admin”</div>
+          </div>
+          <span class="pill" style="background:#fff4d6; color:#8a6a00;">due today</span>
+        </div>
+        <div class="row" style="padding:12px 0; border-bottom:1px solid #eee;">
+          <div class="check"></div>
+          <div style="flex:1">
+            <div>Priya Shah · Northline Joinery</div>
+            <div class="muted" style="font-size:13px; margin-top:2px;">Step 2 · follow-up · digest offer</div>
+          </div>
+        </div>
+        <div class="row" style="padding:12px 0; border-bottom:1px solid #eee;">
+          <div class="check"></div>
+          <div style="flex:1">
+            <div>Weekly digest · AI for builders, week 40</div>
+            <div class="muted" style="font-size:13px; margin-top:2px;">Content · approve before publish</div>
+          </div>
+          <span class="pill" style="background:#ecebff; color:#3d3a9a;">evening</span>
+        </div>
+        <div style="font-size:12px; color:#5856d6; margin:22px 0 8px;">THIS EVENING</div>
+        <div class="row" style="padding:10px 0;">
+          <div class="check"></div>
+          <div>Reply · interested · Oak & Beam <span class="muted" style="font-size:13px;"> · needs a human</span></div>
+        </div>
+      </main>
+    </div>
+  </div>
+</section>
+
+<!-- ATTIO -->
+<section class="stage" id="attio">
+  <div class="caption" style="color:#d4d4d4">
+    <strong>02 Ledger — Attio.</strong> Black, white, hairlines. Records, not cards. Properties sit beside the name. Feels like a precise system of record. Best if OpenMailer should read as infrastructure, not a to-do app.
+  </div>
+  <div style="background:#fafafa; min-height:calc(100vh - 110px); color:#111; font-family:'IBM Plex Sans',Inter,sans-serif;">
+    <div style="display:grid; grid-template-columns:220px 1fr; min-height:calc(100vh - 110px);">
+      <aside style="border-right:1px solid #ececec; padding:18px 14px; background:#fff;">
+        <div style="font-weight:600; letter-spacing:-.03em; padding:4px 8px 18px;">OpenMailer</div>
+        <div style="font-size:13px; padding:7px 8px; background:#f3f3f3; border-radius:6px;">Inbox</div>
+        <div style="font-size:13px; padding:7px 8px; color:#666;">Companies</div>
+        <div style="font-size:13px; padding:7px 8px; color:#666;">People</div>
+        <div style="font-size:13px; padding:7px 8px; color:#666;">Sequences</div>
+        <div style="font-size:13px; padding:7px 8px; color:#666;">Content</div>
+        <div style="font-size:12px; color:#999; padding:18px 8px 6px;">VIEWS</div>
+        <div style="font-size:13px; padding:6px 8px;">Needs approval</div>
+        <div style="font-size:13px; padding:6px 8px; color:#666;">Positive replies</div>
+      </aside>
+      <main style="padding:22px 28px;">
+        <div style="display:flex; justify-content:space-between; align-items:end; margin-bottom:18px;">
+          <div>
+            <div style="font-size:12px; color:#888; letter-spacing:.04em;">TRADELINE</div>
+            <h1 style="margin:4px 0 0; font-size:26px; font-weight:560; letter-spacing:-.03em;">Messages</h1>
+          </div>
+          <div style="font-size:12px; border:1px solid #e5e5e5; border-radius:6px; padding:6px 10px; background:#fff;">Filter · draft</div>
+        </div>
+        <div style="background:#fff; border:1px solid #ececec; border-radius:10px; overflow:hidden;">
+          <div style="display:grid; grid-template-columns:1.4fr 1fr .7fr .6fr; gap:8px; padding:10px 14px; font-size:11px; color:#888; border-bottom:1px solid #f0f0f0; letter-spacing:.04em;">
+            <span>PERSON</span><span>COMPANY</span><span>STEP</span><span>STATUS</span>
+          </div>
+          <div style="display:grid; grid-template-columns:1.4fr 1fr .7fr .6fr; gap:8px; padding:14px; border-bottom:1px solid #f4f4f4; font-size:14px;">
+            <span>Sam Hale</span><span>Hale & Co</span><span>1 · intro</span><span>Draft</span>
+          </div>
+          <div style="display:grid; grid-template-columns:1.4fr 1fr .7fr .6fr; gap:8px; padding:14px; border-bottom:1px solid #f4f4f4; font-size:14px; background:#fafafa;">
+            <span>Priya Shah</span><span>Northline Joinery</span><span>2 · follow-up</span><span>Draft</span>
+          </div>
+          <div style="display:grid; grid-template-columns:1.4fr 1fr .7fr .6fr; gap:8px; padding:14px; border-bottom:1px solid #f4f4f4; font-size:14px;">
+            <span>James Whit</span><span>Oak & Beam</span><span>Reply</span><span>Human</span>
+          </div>
+          <div style="display:grid; grid-template-columns:1.4fr 1fr .7fr .6fr; gap:8px; padding:14px; font-size:14px;">
+            <span>Digest · week 40</span><span>Segment · UK builders</span><span>Publish</span><span>Review</span>
+          </div>
+        </div>
+        <div style="margin-top:18px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
+          <div style="border:1px solid #ececec; border-radius:10px; padding:14px; background:#fff;"><div style="font-size:12px; color:#888;">Sends · 7d</div><div style="font-size:22px; margin-top:6px;">42</div></div>
+          <div style="border:1px solid #ececec; border-radius:10px; padding:14px; background:#fff;"><div style="font-size:12px; color:#888;">Positive replies</div><div style="font-size:22px; margin-top:6px;">7</div></div>
+          <div style="border:1px solid #ececec; border-radius:10px; padding:14px; background:#fff;"><div style="font-size:12px; color:#888;">Awaiting you</div><div style="font-size:22px; margin-top:6px;">6</div></div>
+        </div>
+      </main>
+    </div>
+  </div>
+</section>
+
+<!-- SIGNAL -->
+<section class="stage" id="signal">
+  <div class="caption" style="color:#c4c4c4">
+    <strong>03 Signal — operator console.</strong> Dark, tight, keyboard-first. Status is a dot, not a badge. Built for someone who lives in the queue. Closer to Linear than to Things.
+  </div>
+  <div style="background:#0e0f11; min-height:calc(100vh - 110px); color:#e8e8ea; font-family:Inter,sans-serif;">
+    <div style="display:grid; grid-template-columns:200px 1fr 300px; min-height:calc(100vh - 110px);">
+      <aside style="border-right:1px solid #232428; padding:16px 12px; font-size:13px;">
+        <div style="font-weight:600; padding:4px 8px 16px; letter-spacing:-.03em;">OpenMailer</div>
+        <div style="padding:7px 8px; background:#1c1d22; border-radius:6px;">Inbox <span style="float:right; color:#8b8d98;">6</span></div>
+        <div style="padding:7px 8px; color:#9a9ca6;">Sequences</div>
+        <div style="padding:7px 8px; color:#9a9ca6;">Replies</div>
+        <div style="padding:7px 8px; color:#9a9ca6;">Digest</div>
+        <div style="padding:7px 8px; color:#9a9ca6;">Reports</div>
+      </aside>
+      <main style="padding:18px 20px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+          <h1 style="margin:0; font-size:16px; font-weight:550;">Inbox · Tradeline</h1>
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#8b8d98;">J to approve · K to skip</span>
+        </div>
+        <div style="border:1px solid #2a2b31; border-radius:8px; overflow:hidden;">
+          <div style="display:flex; gap:10px; padding:11px 12px; border-bottom:1px solid #232428; background:#16171b;">
+            <span style="width:8px; height:8px; border-radius:50%; background:#e8b84a; margin-top:5px;"></span>
+            <div style="flex:1"><div>Sam Hale</div><div style="font-size:12px; color:#8b8d98;">Hale & Co · step 1 · intro</div></div>
+            <span style="font-size:12px; color:#8b8d98;">draft</span>
+          </div>
+          <div style="display:flex; gap:10px; padding:11px 12px; border-bottom:1px solid #232428;">
+            <span style="width:8px; height:8px; border-radius:50%; background:#7c83f0; margin-top:5px;"></span>
+            <div style="flex:1"><div>Priya Shah</div><div style="font-size:12px; color:#8b8d98;">Northline · step 2</div></div>
+            <span style="font-size:12px; color:#8b8d98;">draft</span>
+          </div>
+          <div style="display:flex; gap:10px; padding:11px 12px;">
+            <span style="width:8px; height:8px; border-radius:50%; background:#e06b6b; margin-top:5px;"></span>
+            <div style="flex:1"><div>James Whit</div><div style="font-size:12px; color:#8b8d98;">Reply · interested</div></div>
+            <span style="font-size:12px; color:#e06b6b;">human</span>
+          </div>
+        </div>
+      </main>
+      <aside style="border-left:1px solid #232428; padding:18px 16px;">
+        <div style="font-size:12px; color:#8b8d98;">SELECTED</div>
+        <h2 style="margin:8px 0 4px; font-size:16px; font-weight:550;">Sam Hale</h2>
+        <div style="font-size:13px; color:#b7b8c2; line-height:1.5;">Director, Hale & Co. Research cached. Composer used brief v2, step 1.</div>
+        <div style="margin-top:16px; padding:12px; background:#16171b; border-radius:8px; font-size:13px; line-height:1.5; color:#d5d6de;">
+          Subject: A quieter way to handle site admin<br><br>
+          Sam — most of the builders we speak with lose an hour a day to paperwork that should take ten minutes…
+        </div>
+        <div style="display:flex; gap:8px; margin-top:12px;">
+          <div style="background:#fff; color:#111; border-radius:6px; padding:7px 12px; font-size:13px;">Approve</div>
+          <div style="border:1px solid #333; border-radius:6px; padding:7px 12px; font-size:13px;">Edit</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- STUDIO -->
+<section class="stage" id="studio">
+  <div class="caption" style="color:#e7e0d6">
+    <strong>04 Studio — editorial.</strong> Warm paper, serif headlines, the digest sits next to the queue. Feels like a small magazine desk that also sends mail. Best if content and outreach should feel like one brand, not two tools.
+  </div>
+  <div style="background:#f3eee6; min-height:calc(100vh - 110px); color:#1c1917; font-family:Inter,sans-serif;">
+    <div style="max-width:1080px; margin:0 auto; padding:28px 28px 48px;">
+      <div style="display:flex; justify-content:space-between; align-items:end; border-bottom:1px solid #e4dccf; padding-bottom:14px;">
+        <div>
+          <div style="font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#8a7e70;">OpenMailer · Tradeline</div>
+          <h1 style="font-family:Newsreader,serif; font-weight:500; font-size:40px; margin:6px 0 0; letter-spacing:-.03em;">This morning’s desk</h1>
+        </div>
+        <div style="font-size:13px; color:#6b6258;">Thu 1 Oct · 6 waiting</div>
+      </div>
+      <div style="display:grid; grid-template-columns:1.3fr .9fr; gap:28px; margin-top:22px;">
+        <div>
+          <div style="font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:#8a7e70; margin-bottom:10px;">To approve</div>
+          <div style="padding:14px 0; border-bottom:1px solid #e4dccf;">
+            <div style="font-family:Newsreader,serif; font-size:22px;">Sam Hale, Hale & Co</div>
+            <div style="color:#6b6258; margin-top:4px;">A quieter way to handle site admin · step 1</div>
+          </div>
+          <div style="padding:14px 0; border-bottom:1px solid #e4dccf;">
+            <div style="font-family:Newsreader,serif; font-size:22px;">Priya Shah, Northline</div>
+            <div style="color:#6b6258; margin-top:4px;">Follow-up with the digest offer · step 2</div>
+          </div>
+          <div style="padding:14px 0; border-bottom:1px solid #e4dccf;">
+            <div style="font-family:Newsreader,serif; font-size:22px;">James Whit replied</div>
+            <div style="color:#6b6258; margin-top:4px;">Interested — pause the sequence, hand to you</div>
+          </div>
+        </div>
+        <aside style="background:#fffdf8; border:1px solid #e4dccf; border-radius:14px; padding:18px;">
+          <div style="font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:#c45c26;">Digest</div>
+          <h2 style="font-family:Newsreader,serif; font-weight:500; font-size:26px; margin:8px 0;">AI for builders, week 40</h2>
+          <p style="color:#6b6258; font-size:14px; line-height:1.5;">Admin triage, one job-site story, one tool worth trying. Ready to publish to the list after you approve.</p>
+          <div style="margin-top:12px; display:inline-block; background:#1c1917; color:#f3eee6; border-radius:999px; padding:8px 14px; font-size:13px;">Review piece</div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const notes = {
+    things: "Calm daily desk. Colour only means something.",
+    attio: "System of record. Almost no colour.",
+    signal: "Dark queue. Built for speed.",
+    studio: "Paper and type. Outreach plus magazine."
+  };
+  const note = document.getElementById("note");
+  function show(id) {
+    document.querySelectorAll(".stage").forEach(s => s.classList.toggle("on", s.id === id));
+    document.querySelectorAll(".chooser button").forEach(b => b.classList.toggle("on", b.dataset.s === id));
+    note.textContent = notes[id];
+    history.replaceState(null, "", "#" + id);
+  }
+  document.querySelectorAll(".chooser button").forEach(b => b.onclick = () => show(b.dataset.s));
+  const start = (location.hash || "#things").slice(1);
+  show(notes[start] ? start : "things");
+</script>
+</body>
+</html>
