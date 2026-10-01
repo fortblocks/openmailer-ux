@@ -14,8 +14,10 @@
   .brand { display: flex; align-items: center; gap: 8px; font-weight: 600; padding: 4px 8px 18px; letter-spacing: -.02em; }
   .mark { width: 22px; height: 22px; border: 1.5px solid #1c1917; border-radius: 5px; display: grid; place-items: center; font-size: 12px; }
   .sec { font-size: 11px; letter-spacing: .08em; color: #8a8178; padding: 14px 10px 6px; }
-  .item { display: flex; justify-content: space-between; align-items: center; padding: 7px 10px; border-radius: 8px; font-size: 14px; color: #3f3a36; }
+  .item { display: flex; align-items: center; gap: 10px; padding: 7px 10px; border-radius: 8px; font-size: 14px; color: #3f3a36; }
   .item.on { background: #fff; box-shadow: 0 0 0 1px #e7e2da; }
+  .item .label { flex: 1; }
+  .ico { width: 16px; height: 16px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
   .badge { background: #1c1917; color: #fff; border-radius: 999px; font-size: 11px; min-width: 18px; text-align: center; padding: 1px 6px; }
   .main { padding: 16px 22px 40px; }
   .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
@@ -59,17 +61,17 @@
   <aside class="side">
     <div class="brand"><span class="mark">▢</span> OpenMailer</div>
     <div class="sec">DESK</div>
-    <div class="item">Today</div>
-    <div class="item on">Inbox <span class="badge">6</span></div>
+    <div class="item"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2.5 2"/></svg><span class="label">Today</span></div>
+    <div class="item on"><svg class="ico" viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg><span class="label">Inbox</span><span class="badge">6</span></div>
     <div class="sec">PEOPLE</div>
-    <div class="item">People</div>
-    <div class="item">Companies</div>
+    <div class="item"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M5 19c1.5-3 3.8-4.5 7-4.5S17.5 16 19 19"/></svg><span class="label">People</span></div>
+    <div class="item"><svg class="ico" viewBox="0 0 24 24"><path d="M4 20V9l8-5 8 5v11"/><path d="M9 20v-6h6v6"/></svg><span class="label">Companies</span></div>
     <div class="sec">MAIL</div>
-    <div class="item">Sequences</div>
-    <div class="item">Content</div>
+    <div class="item"><svg class="ico" viewBox="0 0 24 24"><path d="M5 7h10M5 12h14M5 17h8"/><path d="M16 15l3 2 3-2"/></svg><span class="label">Sequences</span></div>
+    <div class="item"><svg class="ico" viewBox="0 0 24 24"><path d="M6 4h9l3 3v13H6z"/><path d="M15 4v3h3M8 11h8M8 15h6"/></svg><span class="label">Content</span></div>
     <div class="sec">PROPERTY</div>
-    <div class="item">Tradeline</div>
-    <div class="item">Reports</div>
+    <div class="item"><svg class="ico" viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V7z"/></svg><span class="label">Tradeline</span></div>
+    <div class="item"><svg class="ico" viewBox="0 0 24 24"><path d="M5 19V10M12 19V5M19 19v-7"/></svg><span class="label">Reports</span></div>
   </aside>
   <main class="main">
     <div class="top">
